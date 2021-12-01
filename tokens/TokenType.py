@@ -41,6 +41,7 @@ class TokenType(Enum):
     WHILE = auto()
     OR = auto() 
     SHOW = auto() 
+    VAR = auto() 
 
 
     LET = auto() 

@@ -36,6 +36,7 @@ class GuardML:
         if self.had_error:
             sys.exit(65)
 
+        printer = AstPrinter()
         print(expr)
     def error(self, line: int, kind="", err_message=None):
         self.report_error(line, kind, err_message)

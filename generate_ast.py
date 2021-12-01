@@ -64,32 +64,32 @@ def define_type(base_name: str, class_name: str, fields_sig: str):
     yield f'        return visitor.visit{class_name}{base_name}(self)\n'
 
 
-# def main(argv):
-#     prog = argv.pop(0)
-#     if len(argv) != 1:
-#         print(f'Usage: {prog} <output directory>', file=sys.stderr)
-#         sys.exit(1)
+def main(argv):
+    prog = argv.pop(0)
+    if len(argv) != 1:
+        print(f'Usage: {prog} <output directory>', file=sys.stderr)
+        sys.exit(1)
 
-#     output_dir = argv[0]
+    output_dir = argv[0]
 
-#     write_ast(output_dir, 'Expr', {'tokens': 'Token'}, [
-#         'Assign   : name: Token, value: Expr',
-#         'Binary   : left: Expr, operator: Token, right: Expr',
-#         'Grouping : expression: Expr',
-#         'Literal  : value',
-#         'Unary    : operator: Token, right: Expr',
-#         'Variable : name: Token',
-#     ])
+    write_ast(output_dir, 'Expr', {'tokens': 'Token'}, [
+        'Assign   : name: Token, value: Expr',
+        'Binary   : left: Expr, operator: Token, right: Expr',
+        'Grouping : expression: Expr',
+        'Literal  : value',
+        'Unary    : operator: Token, right: Expr',
+        'Variable : name: Token',
+    ])
 
-#     write_ast(output_dir, 'Stmt', {
-#         'typing'    : 'List',
-#         'tokens'    : 'Token',
-#         'expr'      : 'Expr',
-#         }, [
-#         'Block      : statements: List[Stmt]',
-#         'Expression : expression: Expr',
-#         'Print      : expression: Expr',
-#         'Var        : name: Token, initializer: Expr',
-#     ])
-# if __name__ == '__main__':
-#     main(sys.argv)
+    write_ast(output_dir, 'Stmt', {
+        'typing'    : 'List',
+        'tokens'    : 'Token',
+        'expr'      : 'Expr',
+        }, [
+        'Block      : statements: List[Stmt]',
+        'Expression : expression: Expr',
+        'Print      : expression: Expr',
+        'Var        : name: Token, initializer: Expr',
+    ])
+if __name__ == '__main__':
+    main(sys.argv)
