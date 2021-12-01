@@ -148,7 +148,3 @@ def p_statement(self, t):
 # Contributors
 - Xavier A. Rosado
 - Osvaldo E. Aquino Santana
-- Jonathan Figueroa Perez
-
-
-
