@@ -1,7 +1,9 @@
 import sys 
 
 from Expr import *
-from tokens import token, TokenType
+from tokens.TokenType import TokenType
+from tokens.token import Token
+
 
 class AstPrinter:
     def print(self, expr: Expr):
@@ -31,3 +33,19 @@ class AstPrinter:
         return ''.join(fragments)
 
 
+def main(argv):
+    expression = Binary(
+        Unary(
+            Token(TokenType.MINUS, '-', None, 1),
+            Literal(123)
+        ),
+        Token(TokenType.STAR, '*', None, 1),
+        Grouping(
+            Literal(45.67)
+        )
+    )
+    print(AstPrinter().print(expression))
+
+
+if __name__ == '__main__':
+    main(sys.argv)

@@ -13,11 +13,16 @@ class GuardML:
         self.had_error = False
         self.scanner = scanner
         self.interpreter = interpreter.Interpreter()
-    def run_file(self, file_path):
-        with open(file_path, 'r') as f:
-            source_code = f.read() 
 
-            self.run(source_code)
+
+    def run_file(self, file_path, output=None):
+        try:
+            with open(file_path, 'r') as f:
+                source_code = f.read() 
+                print(f.readline())
+                self.run(source_code, output)
+        except: 
+            print("Failure opening input file.")
 
     def repl(self):
         while True: 
@@ -26,7 +31,7 @@ class GuardML:
                 break
             self.run(line)
 
-    def run(self, source):
+    def run(self, source, output=None):
         if self.scanner == None:
             self.scanner = scanner.Scanner(source, self)
         tokens = list(self.scanner.scan_tokens() )
@@ -35,9 +40,18 @@ class GuardML:
         
         if self.had_error:
             sys.exit(65)
+        if output == None:
+            printer = AstPrinter()
+            for ex in expr:
+                print(ex)
+            for token in tokens:
+                print(token)
+        else: 
+            with open(output, "w") as f:
+                f.write(expr) 
+                f.write(tokens) 
+                print(f"Generated {output} file.")
 
-        printer = AstPrinter()
-        print(expr)
     def error(self, line: int, kind="", err_message=None):
         self.report_error(line, kind, err_message)
         self.had_error = True
@@ -54,4 +68,13 @@ class GuardML:
 
 if __name__ == "__main__":
     gml = GuardML()
-    gml.repl()
+    args = sys.argv
+    print(len(args))
+    if len(args) < 2:
+        gml.repl()
+    else: 
+        output = None 
+        if len(args) > 2: 
+            output = args[1] 
+        print(args[0])
+        gml.run_file(args[1],output)
