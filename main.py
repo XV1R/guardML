@@ -1,10 +1,13 @@
+#!/usr/bin/python3
 import scanner 
 import interpreter
 from print_ast import AstPrinter
 from parser import Parser  
 import sys
+import os 
 from tokens.TokenType import TokenType
 from tokens.token import Token
+from argparse import ArgumentParser
 
 
 
@@ -65,16 +68,23 @@ class GuardML:
         else: 
             self.report_error(token.line, " at ", token.lexeme + "'", err_message)
 
+def generate_parser(): 
+    parser = ArgumentParser(description="GuardML language")
+    parser.add_argument("action", help="Main action to take.", choices=["repl", "build"])
+    parser.add_argument("-f", "--file", type=str, default=None,help="Source file")
+    parser.add_argument("-o", "--output", help="Output file name. Defaults to 'out.gml'.", type=str, default=f"{os.getcwd()}/out.gml") 
+
+    return parser 
+
 
 if __name__ == "__main__":
     gml = GuardML()
-    args = sys.argv
-    print(len(args))
-    if len(args) < 2:
-        gml.repl()
-    else: 
-        output = None 
-        if len(args) > 2: 
-            output = args[1] 
-        print(args[0])
-        gml.run_file(args[1],output)
+    arg_parser = generate_parser() 
+    args = arg_parser.parse_args()
+    match args.action:
+        case "repl":
+            gml.repl() 
+        case "build":
+            gml.run_file(args.file)
+        case _:
+            arg_parser.print_help() 
