@@ -1,0 +1,20 @@
+x =3;
+
+while( y > 30)
+{
+
+}; 
+
+let x=2;
+
+if(x<10){ };
+
+for(x;x<10;x++){ w = 10 };
+
+let add(x,y) = {x + y};
+
+let substract(x,y) = { x - y};
+
+let result = {add(2,3);};
+
+show(result);
